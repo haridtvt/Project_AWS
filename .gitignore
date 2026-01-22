@@ -1,0 +1,8 @@
+Terraform/.terraform/
+Terraform/intrucstion
+Terraform/.terraform.lock.hcl
+Terraform/.terraform.tfstate.lock.info
+Terraform/terraform.tfstate
+Terraform/terraform.tfstate.backup
+Terraform/terraform.tfvars
+.idea/
