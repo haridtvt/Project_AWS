@@ -21,6 +21,7 @@ output "private_az1_subnet_id" {
 output "private_az2_subnet_id" {
   value = aws_subnet.private_az2.id
 }
+
 output "EIP_1" {
   value = aws_eip.EIP_az1.address
 }
