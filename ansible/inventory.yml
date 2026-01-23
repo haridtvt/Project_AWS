@@ -1,0 +1,23 @@
+all:
+  tf_output: "{{ lookup('file', '../terraform/tf_output.json') | from_json }}"
+  vars:
+    ansible_connection: aws_ssm
+    ansible_aws_ssm_region: ap-southeast-1
+    backend_app_name: textbox-api
+    backend_app_port: 8000
+    backend_app_dir: /opt/textbox-api
+
+    db_name: {{ tf_output.rds_endpoint.value }}
+    db_port: 3306
+    db_secret_name: {{ tf.output.db_secret_name.value }}
+
+    frontend_bucket_name: {{ tf.output.frontend_bucket_name.value }}
+    alb_dns_name: {{ tf.ouput.backend_asg_name.value }}
+
+  children:
+    backend:
+      hosts:
+        backend-1:
+          ansible_host: {{ tf_output.ec2_id.value[0] }}
+        backend-2:
+          ansible_host: {{ tf_output.ec2_id[1].value }}

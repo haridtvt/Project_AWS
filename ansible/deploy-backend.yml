@@ -1,0 +1,38 @@
+- name: Deploy backend application
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install python
+      yum:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Create app directory
+      file:
+        path: "{{ backend_app_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copy backend code
+      copy:
+        src: backend/
+        dest: "{{ backend_app_dir }}/"
+
+    - name: Create env file
+      copy:
+        dest: "{{ backend_app_dir }}/.env"
+        content: |
+          APP_PORT={{ backend_app_port }}
+          DB_HOST={{ db_host }}
+          DB_PORT={{ db_port }}
+          DB_NAME={{ db_name }}
+          DB_SECRET_NAME={{ db_secret_name }}
+          AWS_REGION={{ region }}
+
+    - name: Start backend app
+      shell: |
+        cd {{ backend_app_dir }}
+        nohup python3 app.py &

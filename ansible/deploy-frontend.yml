@@ -1,0 +1,16 @@
+- name: Deploy frontend to S3
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Render frontend config
+      copy:
+        dest: frontend/config.js
+        content: |
+          const API_URL = "http://{{ alb_dns_name }}";
+
+    - name: Sync frontend to S3
+      command: >
+        aws s3 sync frontend/
+        s3://{{ frontend_bucket_name }}
+        --delete
