@@ -3,8 +3,9 @@ resource "aws_db_subnet_group" "subnet_db" {
   name = "main-db-subnet"
 }
 
-resource "aws_secretsmanager_secret" "db_secret" {
+resource "aws_secretsmanager_secret" "db_secret_1" {
   name = "backend/rds/mysql-credentials"
+  recovery_window_in_days = 0
 }
 
 resource "aws_db_instance" "db_mysql" {
@@ -25,7 +26,7 @@ resource "aws_db_instance" "db_mysql" {
 }
 
 resource "aws_secretsmanager_secret_version" "db_secret_val" {
-  secret_id     = aws_secretsmanager_secret.db_secret.id
+  secret_id     = aws_secretsmanager_secret.db_secret_1.id
   secret_string = jsonencode({
     username = var.db_uname
     password = var.db_pass

@@ -45,3 +45,7 @@ output "backend_sg_id" {
 output "backend_iam_role_name" {
   value = module.iam-role.backend_iam_role_name
 }
+
+output "ec2_id" {
+  value = module.ec2.asg_instance_ids
+}

@@ -5,4 +5,5 @@ Terraform/.terraform.tfstate.lock.info
 Terraform/terraform.tfstate
 Terraform/terraform.tfstate.backup
 Terraform/terraform.tfvars
+Terraform/outputs.json
 .idea/

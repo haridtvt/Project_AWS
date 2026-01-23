@@ -11,9 +11,9 @@ output "mysql_address" {
 }
 
 output "secret_manager_name" {
-  value       = aws_secretsmanager_secret.db_secret.name
+  value       = aws_secretsmanager_secret.db_secret_1.name
 }
 
 output "secret_manager_arn" {
-  value       = aws_secretsmanager_secret.db_secret.arn
+  value       = aws_secretsmanager_secret.db_secret_1.arn
 }

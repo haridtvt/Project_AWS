@@ -53,3 +53,10 @@ resource "aws_autoscaling_group" "asg" {
   health_check_type = "ELB"
   health_check_grace_period = 300
 }
+
+data "aws_instances" "asg_instances" {
+  instance_tags = {
+    "aws:autoscaling:groupName" = aws_autoscaling_group.asg.name
+  }
+  instance_state_names = ["running", "pending"]
+}
